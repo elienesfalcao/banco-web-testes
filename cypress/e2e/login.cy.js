@@ -1,23 +1,27 @@
+
 describe('Login', () => {
-  it('Login com dados validos deve permitir entrada no sisitema', () => {
+  beforeEach(() => {
     cy.visit('http://localhost:4000')
-    cy.get('#username').click().type('julio.lima')
-    cy.get('#senha').click().type('123456')
+  })
+
+ it('Login com dados válidos deve permitir entrada no sistema', () => {
+    cy.get('#username').type('julio.lima')
+    cy.get('#senha').type('123456')
     cy.contains('button', 'Entrar').click()
 
-    //Asserções é verificar se um título está na tela
-    //cy.contains ('h4', 'Realizar transferência').should('to.visible')
+    // Validar o resultado esperado do login válido
+    // Exemplo:
+    // cy.contains('h4', 'Realizar transferência').should('be.visible')
+  })
+
+  it('Login com dados inválidos deve apresentar mensagem de erro', () => {
+    cy.get('#username').type('julio.lima')
+    cy.get('#senha').type('123')
+    cy.contains('button', 'Entrar').click()
+
+    cy.get('.toast')
+      .should('be.visible')
+      .and('have.text', 'Erro no login. Tente novamente.')
   })
 })
-
-  it('Login com dados invalidos deve apresentar mensagem de erro', () => {
-    cy.visit('http://localhost:4000')
-    cy.get('#username').click().type('julio.lima')
-    cy.get('#senha').click().type('123')
-    cy.contains('button', 'Entrar').click()
-
-    //Asserções é verificar se um título está na tela
-    cy.get('.toast').should('have.text', 'Erro no login. Tente novamente.' )
-
-  })
 
