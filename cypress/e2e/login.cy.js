@@ -5,8 +5,10 @@ describe('Login', () => {
   })
 
  it('Login com dados válidos deve permitir entrada no sistema', () => {
-    cy.get('#username').type('julio.lima')
-    cy.get('#senha').type('123456')
+    cy.fixture('credenciais').then(credenciais => {
+      cy.get('#username').type(credenciais.valida.usuario)
+      cy.get('#senha').type(credenciais.valida.senha)
+    })
     cy.contains('button', 'Entrar').click()
 
     // Validar o resultado esperado do login válido
@@ -15,9 +17,12 @@ describe('Login', () => {
   })
 
   it('Login com dados inválidos deve apresentar mensagem de erro', () => {
-    cy.get('#username').type('julio.lima')
-    cy.get('#senha').type('123')
+    cy.fixture('credenciais').then(credenciais => {
+      cy.get('#username').type('credenciais.invalida.usuario')
+      cy.get('#senha').type('credenciais.invalida.senha')
     cy.contains('button', 'Entrar').click()
+
+    })
 
     cy.get('.toast')
       .should('be.visible')
