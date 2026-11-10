@@ -22,6 +22,7 @@
   "homepage": "https://github.com/elienesfalcao/banco-web-testes#readme",
   "devDependencies": {
     "cypress": "^16.2.0",
+    "cypress-mochawesome-reporter": "^5.0.0",
     "start-server-and-test": "^3.0.13"
   }
 }
